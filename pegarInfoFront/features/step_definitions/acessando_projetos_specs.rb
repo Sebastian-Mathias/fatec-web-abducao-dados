@@ -1,24 +1,25 @@
-Quando("acesso a url") do
-    visit('/projetos/plo.php')
+Entao("que o programa ja foi executado") do
+    json_file = File.new("projetos.json", "w")
+end
+  
+Quando("acesso a url {string}") do |url|
+    visit(url)
 end
 
-E("verifico se estou na pagina correta") do
-    expect(page).to have_current_path('http://www.cmmc.com.br/projetos/plo.php')
+E("verifico se estou na pagina correta {string}") do |url|
+    expect(page).to have_current_path('http://www.cmmc.com.br/'+ url.to_s)
 end
 
 E("Atribuo os dados a uma variavel") do
-    #atribuir o numero do projeto
-    x = 0
-    key = false
-    while key != true do
-        x = x + 1
-        puts x.to_s + "/20"
-        if page.has_link?(x.to_s + "/20") != true
-            break
-        end
-    end
+    @a = Projetos.new
+    projetos= page.text()
+    projetos= projetos.to_s
+    projetos= projetos.split
+    @projeto = @a.pegarProjetos(projetos)
+    # a.salvar_em_json(projetos)
 
 end
 
 Então("Salvo em um arquivo json") do
+    @a.salvar_em_json()
 end
