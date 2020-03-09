@@ -11,39 +11,27 @@ E("verifico se estou na pagina correta {string}") do |url|
 end
 
 E("Atribuo os dados a uma variavel e {string}") do |tipo_projeto|
-    @a = Projetos.new
-    projetos= page.text()
-    projetos= projetos.to_s
-    projetos= projetos.split
-    
-    lista = " "
-    lista = "\n\n"+lista + tipo_projeto.to_s + "\n"
-    i = 0
-    while(i<500) do
-        if projetos[i] == "ANOTAÇÃO"
-            while(i < 1000) do
-                i = i + 1
+    @projetos = Projetos.new
+    @lista = []
+    i = 37
+    # y = 0
+    # nomeDado = ["numero= ", "autor= ","descricao= ", "estado= "]
+    pagina = find_all("td")
+    while(pagina[i].nil? !=true) do
 
-                if(projetos[i] == "«")
-                    break
-                end
-                j = 0
-                while(j<50 ) do
-                    if(projetos[i] == (j.to_s + "/20"))
-                        lista = lista + "\n"
-                        lista = lista + "link: "+ find_link((j.to_s + "/20").to_s)[:href]
-                    end
-                    j = j + 1
-                end
-                lista = lista + " " + projetos[i].to_s
-                
-            end
-        end
+        # @lista.push(nomeDado[y])
+        @lista.push(pagina[i].text)
         i = i + 1
+        # y = y + 1
+        # if(y > 3)
+        #     y = 0
+        # end
     end
-    @lista = lista
+    puts @lista
+    
+
 end
 
 Então("Salvo em um arquivo json") do
-    @a.salvar_em_json(@lista)
+    @projetos.salvar_em_json(@lista)
 end
