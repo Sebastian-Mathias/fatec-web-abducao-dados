@@ -43,8 +43,9 @@ Entao("Atribuo os dados a uma variavel e {string}") do |tipo_projeto|
         end 
 
     end
-    
-    if  tipo_projeto == "resolucao"
+    if tipo_projeto == "leiOrdinaria"
+        @jsonFormat = @jsonFormat + ","
+    elsif  tipo_projeto == "resolucao"
         @jsonFormat = @jsonFormat + "]}"
     elsif tipo_projeto != "leiOrdinaria"
         @jsonFormat = @jsonFormat + "],"
