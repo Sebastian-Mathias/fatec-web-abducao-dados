@@ -33,10 +33,15 @@ Entao("Atribuo os dados a uma variavel e {string}") do |tipo_projeto|
     i = 0
 
     while(@lista[i].nil? !=true) do
-        @jsonFormat = @jsonFormat + "{ " + '"numero"'  + ":"+'"'+@lista[i].to_s+'"' + "," 
-        @jsonFormat = @jsonFormat + '"autor"'  + ":"+'"'+@lista[i+1].to_s+'"' + "," 
-        @jsonFormat = @jsonFormat + '"assunto"'  + ":"+'"'+@lista[i+2].to_s+'"' + "," 
-        @jsonFormat = @jsonFormat + '"anotacao"'  + ":"+'"'+@lista[i+3].to_s+'"' + "}" 
+        docNum = @lista[i].split('/')
+        docFormatUrl = "http://www.cmmc.com.br/siteadmin/projetos/anexos/Pl_0"+docNum[0] + "_" + docNum[1]+".pdf"
+
+
+        @jsonFormat = @jsonFormat + "{"+'"numero"'+":"+'"'+@lista[i].to_s+'"' + "," 
+        @jsonFormat = @jsonFormat + '"autor"'+":"+'"'+@lista[i+1].to_s+'"' + "," 
+        @jsonFormat = @jsonFormat + '"assunto"'+":"+'"'+@lista[i+2].to_s+'"' + "," 
+        @jsonFormat = @jsonFormat + '"link"'+":"+'"'+docFormatUrl.to_s + '"' + "," 
+        @jsonFormat = @jsonFormat + '"anotacao"'+":"+'"'+@lista[i+3].to_s+'"' + "}" 
         i = i + 4
         if @lista[i].nil? !=true 
             @jsonFormat = @jsonFormat + ','
